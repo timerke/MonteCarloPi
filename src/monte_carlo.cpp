@@ -56,6 +56,8 @@ void MonteCarlo::calculate_points_inside(unsigned int n)
 		if (check_inside(points[i]))
 			points_inside++;
 	}
+	// Освобождаем память, выделенную для массива точек
+	delete[] points;
 	// Дополняем количество точек в общем счетчике
 	number_mutex.lock();
 	points_number_inside += points_inside;
@@ -102,6 +104,8 @@ double MonteCarlo::run()
 	for (unsigned int i = 0; i < threads_number; i++)
 		threads[i]->join();
 	// Удаляем потоки
+	for (unsigned int i = 0; i < threads_number; i++)
+		delete threads[i];
 	delete[] threads;
 	// Вычисляем число Пи
 	return calculate_pi();

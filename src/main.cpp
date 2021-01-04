@@ -1,5 +1,5 @@
 ﻿/*
-Задача.
+Задача 3.
 Написать программу для приближенного вычисления числа «Пи» методом Монте-Карло.
 Для этого сгенерировать M пар случайных чисел в диапазоне [0; D]. Используя их
 как координаты точек на плоскости, посчитать сколько точек N, которые попадают
@@ -13,27 +13,33 @@
 значения времени для разного количества потоков. Сделать выводы.
 */
 
+#define __CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
+#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define new DEBUG_NEW
 #include <iostream>
 #include "monte_carlo.h"
 
 
 int main()
 {
-    setlocale(LC_ALL, "Rus");
-    // Количество случайных точек, которые нужно сгенерировать
-    const unsigned int POINTS_NUMBER = 10000000;
-    // Сторона квадрата, внутри которого будут генерироваться точки
-    double D = 5.0;
+	setlocale(LC_ALL, "Rus");
+	// Количество случайных точек, которые нужно сгенерировать
+	const unsigned int POINTS_NUMBER = 10000000;
+	// Сторона квадрата, внутри которого будут генерироваться точки
+	double D = 5.0;
 
-    // Вычисляем число Пи с разным количеством потоков
-    for (unsigned int threads_number = 1; threads_number < 6; threads_number++)
-    {
-        MonteCarlo monte_carlo(POINTS_NUMBER, D, threads_number);
-        clock_t t_start = clock();
-        std::cout << "Число Пи с " << threads_number << " потоками: " <<
-            monte_carlo.run() << "\n";
-        clock_t t = clock() - t_start;
-        std::cout << "Время выполнения: " << 1.0 * t / CLOCKS_PER_SEC <<
-            "\n\n";
-    }
+	// Вычисляем число Пи с разным количеством потоков
+	for (unsigned int threads_number = 1; threads_number < 6; threads_number++)
+	{
+		MonteCarlo monte_carlo(POINTS_NUMBER, D, threads_number);
+		clock_t t_start = clock();
+		std::cout << "Число Пи с " << threads_number << " потоками: " <<
+			monte_carlo.run() << "\n";
+		clock_t t = clock() - t_start;
+		std::cout << "Время выполнения: " << 1.0 * t / CLOCKS_PER_SEC <<
+			"\n\n";
+	}
+	_CrtDumpMemoryLeaks();
+	return 0;
 }
