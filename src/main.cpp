@@ -13,10 +13,6 @@
 значения времени для разного количества потоков. Сделать выводы.
 */
 
-#define __CRTDBG_MAP_ALLOC
-#include <crtdbg.h>
-#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
-#define new DEBUG_NEW
 #include <iostream>
 #include "monte_carlo.h"
 
@@ -40,6 +36,5 @@ int main()
 		std::cout << "Время выполнения: " << 1.0 * t / CLOCKS_PER_SEC <<
 			"\n\n";
 	}
-	_CrtDumpMemoryLeaks();
 	return 0;
 }
